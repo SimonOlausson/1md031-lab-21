@@ -1,50 +1,68 @@
+<!--
+    Terminal:
+        Ändra pwd mha cd till rätt mapp.
+        cd /Users/simonolausson/Documents/Gränssnittsproggramering/1md031-lab-21
+        skriv in npm run serve
+        Gå till http://localhost:8080/
+-->
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-    <title>Simons underbara burgare</title>
+    <title>Simons burgare</title>
     <meta charset="utf-8"/>
+    <!--<link rel="stylesheet" type="text/css" href="reset.css">-->
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <header>
+    <header id="head">
+        <img src="https://www.mcdonalds.com/is/image/content/dam/se/nfl/Core/Footer/OmOss/mcd-sv-core-om-oss2-desktop.jpg?$Hero_Desktop$">
         <h1> Välkommen till burgeronline</h1>
     </header>
     <main>
-        <section>
+        <section id="hamburgare">
             <h2> Hamburgare</h2>
                 <p>Här väljer du vilken hamburgare du vill ha</p>
-            <div style="float:left">
-                <h2> Amerikansk</h2>
-                <img src="https://img.koket.se/standard-mega/klassisk-amerikansk-hamburgare.jpg.webp" alt="Span" title="Another in-line element" style="width: 200px;">
-                <ul>
-                    <li>Innehåller kött</li>
-                    <li>Innehåller gluten</li>
-                    <li>Innehålle laktos</li>
-                    <li>väldigt god</li>
-                </ul>
-            </div>
-            <div style="float:left">
-                <h2> smashad</h2>
-                <img src="https://files.allas.se/uploads/sites/25/2020/12/smashade-burgare-godaste-hemgjorda-hamburgaren-1024x683.jpg" alt="Span" title="Another in-line element" style="width: 200px;">
-                <ul>
-                    <li>Innehåller kött</li>
-                    <li>Innehåller gluten</li>
-                    <li>Innehålle laktos</li>
-                    <li>väldigt god</li>
-                </ul>
-            </div>
-            <div style="float:left">
-                <h2> Maxad</h2>
-                <img src="https://www.max.se/contentassets/1fdf0ed6657c4de8a5a89751b81bb875/product_hamburgare.png?width=1160&sharpen=5&sigma=1,4&threshold=0" alt="Span" title="Another in-line element" style="width: 200px;">
-                <ul>
-                    <li>Innehåller kött</li>
-                    <li>Innehåller gluten</li>
-                    <li>Innehålle laktos</li>
-                    <li>väldigt god</li>
-                </ul>
+            <div class="wrapper">
+                <div class="box a">
+                    <h2> Amerikansk</h2>
+                    <img src="https://img.koket.se/standard-mega/klassisk-amerikansk-hamburgare.jpg.webp" alt="Span" title="Another in-line element" style="width: 200px;">
+                    <section class="ingredienser">
+                        <ul>
+                            <li>Innehåller kött</li>
+                            <li>Innehåller gluten</li>
+                            <li>Innehålle laktos</li>
+                            <li>väldigt god</li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="box b">
+                    <h2> smashad</h2>
+                    <img src="https://files.allas.se/uploads/sites/25/2020/12/smashade-burgare-godaste-hemgjorda-hamburgaren-1024x683.jpg" alt="Span" title="Another in-line element" style="width: 200px;">
+                    <section class="ingredienser">
+                        <ul>
+                            <li>Innehåller kött</li>
+                            <li>Innehåller gluten</li>
+                            <li>Innehålle laktos</li>
+                            <li>väldigt god</li>
+                        </ul>
+                    </section>
+                </div>
+                <div class="box c">
+                    <h2> Maxad</h2>
+                    <img src="https://www.max.se/contentassets/1fdf0ed6657c4de8a5a89751b81bb875/product_hamburgare.png?width=1160&sharpen=5&sigma=1,4&threshold=0" alt="Span" title="Another in-line element" style="width: 200px;">
+                    <section class="ingredienser">
+                        <ul>
+                            <li>Innehåller kött</li>
+                            <li>Innehåller gluten</li>
+                            <li>Innehålle laktos</li>
+                            <li>väldigt god</li>
+                        </ul>
+                    </section>
+                </div>
             </div>
 
         </section>
-        <section style="clear:left">
+        <section id="kundinfo" style="clear:left">
             <h2>Information  om kund</h2>
                 <p>Här kan du ange information om dig själv såsom leveransadress osv.</p>
             <h3>Information om leverans</h3>
@@ -86,10 +104,10 @@
                     <input type="radio" id="Vill ej uppge" name="kön" value="Vill ej uppge" checked="checked">
                     <label for="Vill ej uppge">Vill ej uppge</label>
                 </div>
-            <button type="submit">
-                <img src="https://educaora.com/api/editors/6176786d68d9913b4bb2739c/published-files/image_button.png">
-            </button>
         </section>
+        <button type="submit">
+            <img src="https://educaora.com/api/editors/6176786d68d9913b4bb2739c/published-files/image_button.png">
+        </button>
         <footer>
             <hr>
             <p>Copyright</p>

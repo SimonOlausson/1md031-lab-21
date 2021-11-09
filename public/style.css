@@ -1,1 +1,89 @@
-/*empty*/
+/* Såhär kommenterar man */
+@import 'https://fonts.googleapis.com/css?family=Pacifico|Dosis';
+
+body {
+    font-family: arial;
+    color:black;
+    font-size: 1.3em;
+}
+
+.ingredienser {
+    color: #ff5500;
+    font-weight: bold;
+}
+
+.wrapper {
+    display: grid;
+    grid-gap: 10px;
+    /*grid-template-columns: 400px 400px 400px;*/
+    background-color: #fff;
+    color: #444;
+    border-style: dashed;
+}
+
+.box {
+    border-style: dashed;
+    /*background-color: #444;*/
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 100%;
+}
+
+.a {
+    grid-column: 1;
+}
+.b {
+    grid-column: 2 ;
+}
+.c {
+    grid-column: 3 ;
+
+}
+
+#kundinfo {
+    background-color: black;
+    color:white;
+    border-style: dashed;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+section{
+    margin-left: 10px;
+}
+#hamburgare {
+    border-style: dashed;
+    padding: 10px;
+}
+
+#hamburgare div{    /*betyder alla divs som är barn till id't hamburgare*/
+    padding:20px;
+}
+
+button:hover {
+    background-color:lawngreen;
+    cursor: pointer;
+}
+
+button{
+    margin:20px;
+}
+
+#head{
+    margin-left:10px;
+    height: 200px;
+    width: 100%;
+    overflow: hidden;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+#head img{
+    opacity: 50%;
+}
+#head h1{
+    position: absolute;
+    margin-top: -500px;
+}
+
+
