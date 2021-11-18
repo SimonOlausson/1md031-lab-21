@@ -24,7 +24,7 @@ export default {
       orders: null
     }
   },
-  created: function () {
+  created: function () { //detta sker när sidan är skapad, därav "created"
     socket.on('currentQueue', data =>
       this.orders = data.orders);
   },
