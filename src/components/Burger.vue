@@ -6,10 +6,10 @@
   <div>
     <div>
       <button type="button" v-on:click="minusAmount">
-        <p>minus</p>
+        minus
       </button>
       <button type="button" v-on:click="plusAmount">
-        <p>plus</p>
+        plus
       </button>
     </div>
     <h2> {{ burger.name }} {{amountOrdered}} </h2>
@@ -17,8 +17,11 @@
     <section class="ingredienser">
       <ul>
         <li>Innehåller kött</li>
-        <li>Innehåller gluten:{{burger.gluten}}</li> <!--Ifsats v-if for att kolla laktor gluten-->
-        <li>Innehåller laktos:{{burger.lactose}}</li>
+        <li v-if="burger.gluten">Innehåller gluten</li>
+        <li v-else> Glutenfri</li>
+        <li v-if="burger.lactose">Innehåller laktos</li>
+        <li v-else> laktosfri</li>
+
       </ul>
     </section>
   </div>

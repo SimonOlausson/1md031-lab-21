@@ -1,20 +1,28 @@
-<!-- Home.vue and dispatcher.vue sends and recives messages to/from the server.
+<!-- Home.vue and dispatcher.vue sends and receives messages to/from the server.
      v-bind binder något till ett namn?
     cd /Users/simonolausson/Documents/Gränssnittsproggramering/1md031-lab-21
     npm run serve
+
+    git status
+    git add -A
+    git commit -m "medelande"
+    git push
 
 -->
 
 <template> <!-- HTML -->
 
   <div id="mapWrapper">
-    <div id="map" v-on:klick="addOrder">
-      click here
+    <div id="map" v-on:click="setLocation"> <!-- Denna funktion används för att välja position på kartan -->
+      <div id="orderDot" v-bind:style="{ left: this.location.x + 'px',
+                                         top: this.location.y + 'px' }">
+        T
+      </div>
     </div>
   </div>
 
   <header id="head">
-    <img src="https://www.mcdonalds.com/is/image/content/dam/se/nfl/Core/Footer/OmOss/mcd-sv-core-om-oss2-desktop.jpg?$Hero_Desktop$">
+    <img src="https://www.mcdonalds.com/is/image/content/dam/se/nfl/Core/Footer/OmOss/mcd-sv-core-om-oss2-desktop.jpg?$Hero_Desktop$" alt="hamburgare">
     <h1> Välkommen till burgeronline</h1>
   </header>
 
@@ -86,42 +94,32 @@
         {{email}}
       </p>
       <p>
-        <label for="gata">Gata</label><br>
-        <input type="text" id="gata" v-model="gata" required="required" placeholder="Namn på gata">
-        {{gata}}
-      </p>
-      <p>
-        <label for="husnummer">Hus</label><br>
-        <input type="text" id="husnummer" v-model="husnummer" required="required" placeholder="husnummer">
-        {{husnummer}}
-      </p>
-      <p>
-        <label for="Betalsätt">Betalsätt </label>
-        <select id="Betalsätt" v-model="betalsätt" >
+        <label for="Betalsatt">Betalsätt </label>
+        <select id="Betalsatt" v-model="betalsatt" >
           <option>Kort</option>
           <option>Paypal</option>
           <option selected="selected">Swish</option>
           <option>Bitcoin</option>
         </select>
-        {{betalsätt}}
+        {{ betalsatt }}
 
       </p>
-      <p>Kön :{{kön}}</p>
+      <p>Kön :{{ gender }}</p>
       <div>
-        <input type="radio" id="Man" v-model="kön" value="Man">
+        <input type="radio" id="Man" v-model="gender" value="Man">
         <label for="Man">Man</label>
       </div>
       <div>
-        <input type="radio" id="Kvinna" v-model="kön" value="Kvinna">
+        <input type="radio" id="Kvinna" v-model="gender" value="Kvinna">
         <label for="Kvinna">Kvinna</label>
       </div>
       <div>
-        <input type="radio" id="Vill ej uppge" v-model="kön" value="Vill ej uppge" checked="checked">
+        <input type="radio" id="Vill ej uppge" v-model="gender" value="Vill ej uppge" checked="checked">
         <label for="Vill ej uppge">Vill ej uppge</label>
       </div>
     </section>
     <button type="submit" v-on:click="handleClick">
-      <img src="https://educaora.com/api/editors/6176786d68d9913b4bb2739c/published-files/image_button.png">
+      <img src="https://educaora.com/api/editors/6176786d68d9913b4bb2739c/published-files/image_button.png" alt="hamburgare">
     </button>
     <footer>
       <hr>
@@ -168,33 +166,44 @@ export default {
       burgers:burgers,
       namn:"",
       email:"",
-      gata:"",
-      husnummer:"",
-      kön:"Vill ej uppge",
-      betalsätt:""
+      gender:"Vill ej uppge",
+      betalsatt:"",
+      location:{ x:0,
+                 y:0
+      },
+      orderedBurgers:{Burger:0, Barger:0, Birger:0}
+
     }
   },
   methods: { // JS-metoder, kan vara rätt viktig i labben.
     getOrderNumber: function () {
       return Math.floor(Math.random()*100000);
     },
-    addOrder: function (event) {
+
+    setLocation: function (event){
       let offset = {x: event.currentTarget.getBoundingClientRect().left,
                     y: event.currentTarget.getBoundingClientRect().top};
+      this.location.x = event.clientX - 10 - offset.x
+      this.location.y = event.clientY - 10 - offset.y
+    },
 
-      socket.emit("addOrder", { orderId: this.getOrderNumber(), //socket.emit is sending a message. Socket.on is a listener.
-                                details: { x: event.clientX - 10 - offset.x,
-                                           y: event.clientY - 10 - offset.y },
-                                orderItems: ["Beans", "Curry"]
-                              }
-                 );
-    },
     handleClick: function() {
-      console.log(this.namn, this.email, this.gata, this.husnummer, this.kön, this.betalsätt)
+      console.log(this.namn, this.email, this.gender, this.betalsatt)
+      socket.emit("addOrder", { orderId: this.getOrderNumber(), //socket.emit is sending a message. Socket.on is a listener.
+            details: {  x: this.location.x,
+                        y: this.location.y,
+                        namn: this.namn,
+                        email: this.email,
+                        gender: this.gender,
+                        betalsatt: this.betalsatt},
+            orderItems: this.orderedBurgers
+          },
+      );
     },
+
     addToOrder: function (event) {
       console.log(event.name, event.amount)
-      //this.orderedBurger[event.name] = event.amount; //DET ÄR HÄR DEN SLUTAR FUNKA
+      this.orderedBurgers[event.name] = event.amount;
     },
   }
 }
@@ -212,18 +221,14 @@ export default {
   width: 1000px;
   height: 500px;
     overflow: scroll;
+    position: relative;
 
   }
 
   body {
-    font-family: arial;
+    font-family: arial, sans-serif;
     color:black;
     font-size: 1.3em;
-  }
-
-  .ingredienser {
-    color: #ff5500;
-    font-weight: bold;
   }
 
   .wrapper {
@@ -237,26 +242,6 @@ export default {
     border-style: dashed;
   }
 
-  .box {
-    border-style: dashed;
-    /*background-color: #444;*/
-    color: #fff;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 100%;
-  }
-
-  .a {
-    grid-column: 1;
-  }
-  .b {
-    grid-column: 2 ;
-  }
-  .c {
-    grid-column: 3 ;
-
-  }
-
   #kundinfo {
     background-color: black;
     color:white;
@@ -267,10 +252,6 @@ export default {
 
   section{
     margin-left: 10px;
-  }
-  #hamburgare {
-    border-style: dashed;
-    padding: 10px;
   }
 
   #hamburgare div{    /*betyder alla divs som är barn till id't hamburgare*/
@@ -301,7 +282,15 @@ export default {
     position: absolute;
     margin-top: -500px;
   }
+#orderDot{
+  position: absolute;
+  background: black;
+  color:white;
+  border-radius: 10px;
+  widht:20px;
+  height:20px;
+  text-align: center;
 
-
+}
 
 </style>
